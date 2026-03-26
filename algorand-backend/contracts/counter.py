@@ -9,16 +9,14 @@ def approval_program():
         App.globalPut(Bytes("Count"), Int(0)),
         Return(Int(1))
     )
-    # handle creation function above
+
     handle_optin = Return(Int(0))
-
     handle_closeout = Return(Int(0))
-
     handle_updateapp = Return(Int(0))
-
     handle_deleteapp = Return(Int(0))
-    
+
     scratchCount = ScratchVar(TealType.uint64)
+
     add = Seq([
         scratchCount.store(App.globalGet(Bytes("Count"))),
         App.globalPut(Bytes("Count"), scratchCount.load() + Int(1)),
@@ -28,8 +26,7 @@ def approval_program():
     deduct = Seq([
         scratchCount.store(App.globalGet(Bytes("Count"))),
         If(scratchCount.load() > Int(0),
-           App.globalPut(Bytes("Count"), scratchCount.load() - Int(1)),
-           ),
+           App.globalPut(Bytes("Count"), scratchCount.load() - Int(1))),
         Return(Int(1))
     ])
 
